@@ -1,11 +1,14 @@
-  # Use the official Maven image as a base, which includes Maven and JDK 11
-   FROM maven:3.8.4-jdk-11
-   
-   # Set the working directory inside the container to /app
+ # Use an official Maven image with OpenJDK
+   FROM maven:3.8.4-openjdk-17
+
+   # Set the working directory inside the container
    WORKDIR /app
-   
-   # Copy the source code from the host machine to the container
+
+   # Copy the local repository contents into the container
    COPY . /app
-   
-   # Run Maven commands to clean and package the project
+
+   # Run Maven clean and package to build the Java project
    RUN mvn clean package
+
+   # Specify the command to run the built JAR file (adjust if needed)
+   CMD ["java", "-jar", "target/your-app.jar"]  # Adjust to your built JAR file
